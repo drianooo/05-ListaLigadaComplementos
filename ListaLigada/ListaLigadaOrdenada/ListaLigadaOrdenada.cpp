@@ -31,7 +31,7 @@ void menu()
 	int op = 0;
 	while (op != 7) {
 		system("cls"); // somente no windows
-		cout << "Menu Lista Ligada";
+		cout << "Menu Lista Ligada Ordenada";
 		cout << endl << endl;
 		cout << "1 - Inicializar Lista \n";
 		cout << "2 - Exibir quantidade de elementos \n";
@@ -133,12 +133,24 @@ void inserirElemento()
 	{
 		// procura o final da lista
 		NO* aux = primeiro;
-		while (aux->prox != NULL) {
+		NO* anterior = NULL;
+		while (aux->prox != NULL && novo->valor > aux->valor) {
+			anterior = aux;
 			aux = aux->prox;
 		}
-		aux->prox = novo;
+		if (aux == primeiro && novo->valor<primeiro->valor)
+		{
+			primeiro = novo;
+			primeiro->prox = aux;
+		}
+		else if (anterior != NULL & aux->prox == NULL){
+				anterior->prox = novo;
+		}
+		else if (aux->prox == NULL){
+		}
+			aux->prox = novo;
+		}
 	}
-}
 
 void excluirElemento()
 {
