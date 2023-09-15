@@ -129,28 +129,34 @@ void inserirElemento()
 	{
 		primeiro = novo;
 	}
-	else
+	else if (posicaoElemento(novo->valor) == NULL) 
 	{
-		// procura o final da lista
-		NO* aux = primeiro;
-		NO* anterior = NULL;
-		while (aux->prox != NULL && novo->valor > aux->valor) {
-			anterior = aux;
-			aux = aux->prox;
-		}
-		if (aux == primeiro && novo->valor<primeiro->valor)
+		if (novo->valor < primeiro->valor)
 		{
+			novo->prox = primeiro;
 			primeiro = novo;
-			primeiro->prox = aux;
+			cout << "Numero adicionado com sucesso\n";
 		}
-		else if (anterior != NULL & aux->prox == NULL){
-				anterior->prox = novo;
-		}
-		else if (aux->prox == NULL){
-		}
-			aux->prox = novo;
+		else {
+			NO* aux = primeiro;
+			NO* anterior = NULL;
+			while (aux != NULL) {
+				if (aux->valor > novo->valor) {
+					break;
+				}
+				anterior = aux;
+				aux = aux->prox;
+			}
+			anterior->prox = novo;
+			novo->prox = aux;
+			cout << "Numero adicionado com sucesso\n";
 		}
 	}
+	else {
+		cout << "Numero ja existente na lista\n";
+	}
+	
+}
 
 void excluirElemento()
 {
@@ -160,6 +166,23 @@ void excluirElemento()
 void buscarElemento()
 {
 
+}
+
+NO* posicaoElemento(int numero)
+{
+	NO* aux = primeiro;
+	if (numero < primeiro->valor)
+	{
+		return NULL;
+	}
+	while (aux != NULL) {
+		if (aux->valor == numero)
+		{
+			break;
+		}
+		aux = aux->prox;
+	}
+	return aux;
 }
 
 
